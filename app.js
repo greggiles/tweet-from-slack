@@ -118,7 +118,7 @@ app.post('/*', function(req, res, next) {
 });
 
 // test route
-app.get('/', function (req, res) { res.status(200).send('SupportKit.io loves Slack and Twitter!') });
+app.get('/', function (req, res) { res.status(200).send('SupportKit.io loves Slack and Twitter! Testing!') });
 
 // error handler
 app.use(function (err, req, res, next) {
