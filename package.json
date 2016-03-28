@@ -5,7 +5,9 @@
   "private": true,
   "main": "app.js",
   "dependencies": {
+    "dotenv": "^1.1.0",
   	"express": "*",
+    "fs-extra": "^0.26.5",
     "body-parser": "*",
     "twitter": "*"
   },
