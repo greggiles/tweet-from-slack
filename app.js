@@ -120,14 +120,15 @@ app.post('/*', function(req, res, next) {
 // test route
 app.get('/', function (req, res) {
 
-  var params = {screen_name: 'the_greggiles'};
-  twitter.get('statuses/user_timeline', params, function(error, tweets, response){
+  //var params = {screen_name: 'the_greggiles'};
+  var params = {};
+  twitter.get('statuses/home_timeline.json', params, function(error, tweets, response){
     if (!error) {
-      res.status(200).send(tweets);
+      res.status(200).send('Hi' + tweets);
     }
     else
     {
-      res.status(200).send(error);
+      res.status(200).send('Bye' + error);
     }
   });
 
