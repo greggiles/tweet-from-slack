@@ -31,6 +31,39 @@
     "DISABLED_FUNCTIONS" : {
       "description" : "Disables certain twitter functions from being used. For example, you can prevent slack users from posting new status updates, but still allow them to retweet or favorite. You can input the following: status_update, reply, retweet, favorite",
       "required": false
+    },
+    "GG_CONSUMER_KEY" : {
+      "description": "consumer key",
+      "required": true
+    },
+    "GG_CONSUMER_SECRET": {
+      "description": "consumer secret",
+      "required": true
+    },
+    "GG_ACCESS_TOKEN_KEY": {
+      "description": "access token",
+      "required": true
+    },
+    "GG_ACCESS_TOKEN_SECRET": {
+      "description": "access token secret",
+      "required": true
+    },
+    "SW_CONSUMER_KEY" : {
+      "description": "consumer key",
+      "required": true
+    },
+    "SW_CONSUMER_SECRET": {
+      "description": "consumer secret",
+      "required": true
+    },
+    "SW_ACCESS_TOKEN_KEY": {
+      "description": "access token",
+      "required": true
+    },
+    "SW_ACCESS_TOKEN_SECRET": {
+      "description": "access token secret",
+      "required": true
     }
+
   }
 }

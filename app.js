@@ -1,11 +1,23 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var Twitter = require('twitter');
-var twitter = new Twitter({
+var twitterJT = new Twitter({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
   access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+});
+var twitterGG = new Twitter({
+  consumer_key: process.env.GG_TWITTER_CONSUMER_KEY,
+  consumer_secret: process.env.GG_TWITTER_CONSUMER_SECRET,
+  access_token_key: process.env.GG_TWITTER_ACCESS_TOKEN_KEY,
+  access_token_secret: process.env.GG_TWITTER_ACCESS_TOKEN_SECRET
+});
+var twitterSW = new Twitter({
+  consumer_key: process.env.SW_TWITTER_CONSUMER_KEY,
+  consumer_secret: process.env.SW_TWITTER_CONSUMER_SECRET,
+  access_token_key: process.env.SW_TWITTER_ACCESS_TOKEN_KEY,
+  access_token_secret: process.env.SW_TWITTER_ACCESS_TOKEN_SECRET
 });
 
 var app = express();
@@ -13,7 +25,7 @@ var port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-function postToTwitter(command, text, user_name, token, cb) {
+function postToTwitter(twitter, command, text, user_name, token, cb) {
   if ( !process.env.SLACK_TOKEN || token != process.env.SLACK_TOKEN ) {
     throw new Error( 'Slack token is invalid' );
   }
@@ -111,9 +123,21 @@ app.post('/*', function(req, res, next) {
   user_name = req.body.user_name,
   token = req.body.token;
 
-  postToTwitter( command, text, user_name, token,  function(error, tweet, action) {
-    if (error) return next(error[0]);
-    res.status(200).send(action + ": " + tweet.text);
+  var resp = '';
+
+  postToTwitter( twitterJT, command, text, user_name, token,  function(error, tweet, action) {
+    if (error) resp = "JTree :" + next(error[0]);
+    else resp = "JTree "+ action + ": " + tweet.text;
+    postToTwitter( twitterGG, command, text, user_name, token,  function(error, tweet, action) {
+      if (error) resp = resp + "Greg: " + next(error[0]);
+      else resp = resp + "Greg "+ action + ": " + tweet.text;
+      postToTwitter( twitterSW, command, text, user_name, token,  function(error, tweet, action) {
+        if (error) resp = resp + "Wally: " + next(error[0]);
+        else resp = resp + "Wally "+ action + ": " + tweet.text;
+        //if (error) return next(error[0]);
+        res.status(200).send(action + ": " + resp);
+      });
+    });
   });
 });
 
