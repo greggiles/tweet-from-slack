@@ -118,7 +118,7 @@ app.post('/*', function(req, res, next) {
 });
 
 // test route
-app.get('/', function (req, res) { res.status(200).send('SupportKit.io loves Slack and Twitter! Testing!') });
+app.get('/', function (req, res) { res.status(200).send('Forked from SupportKit.IO! Slack to Twitter feed.') });
 
 // error handler
 app.use(function (err, req, res, next) {

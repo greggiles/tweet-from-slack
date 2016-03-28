@@ -1,7 +1,7 @@
 {
   "name": "Tweet from Slack",
   "description": "Post tweets, replies, retweets and favorites directly from Slack",
-  "repository": "https://github.com/supportkit/tweet-from-slack",
+  "repository": "https://github.com/greggiles/tweet-from-slack",
   "keywords": ["slack", "twitter", "tweet", "javascript", "heroku"],
   "env": {
     "TWITTER_CONSUMER_KEY" : {
