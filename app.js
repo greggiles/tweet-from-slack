@@ -2,10 +2,14 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var Twitter = require('twitter');
 var twitter = new Twitter({
-  consumer_key: process.env.TWITTER_CONSUMER_KEY || 'QEnFKea6O2ykT7rfCjDShswxH',
-  consumer_secret: process.env.TWITTER_CONSUMER_SECRET || 'PR98YwYFFClqhBMn7fveVqdmqnp9wMZde0HziLYYdA3tEek5el',
-  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY || '3020001144-JEBoe1K4Vt70zsjPr7cKkQuUvdG0nOvdJp48xh7',
-  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET || 'WPGtWmvKSTve7s7zia9rKumsI0GYB1L6pT0dnnyBwAtnc'
+  consumer_key: process.env.TWITTER_CONSUMER_KEY,
+  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+//  consumer_key: process.env.TWITTER_CONSUMER_KEY || 'QEnFKea6O2ykT7rfCjDShswxH',
+//  consumer_secret: process.env.TWITTER_CONSUMER_SECRET || 'PR98YwYFFClqhBMn7fveVqdmqnp9wMZde0HziLYYdA3tEek5el',
+//  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY || '3020001144-JEBoe1K4Vt70zsjPr7cKkQuUvdG0nOvdJp48xh7',
+//  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET || 'WPGtWmvKSTve7s7zia9rKumsI0GYB1L6pT0dnnyBwAtnc'
 });
 
 var app = express();
