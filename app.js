@@ -118,7 +118,21 @@ app.post('/*', function(req, res, next) {
 });
 
 // test route
-app.get('/', function (req, res) { res.status(200).send('Forked from SupportKit.IO! Slack to Twitter feed.') });
+app.get('/', function (req, res) {
+
+  var params = {screen_name: 'the_greggiles'};
+  twitter.get('statuses/user_timeline', params, function(error, tweets, response){
+    if (!error) {
+      res.status(200).send(tweets);
+    }
+    else
+    {
+      res.status(200).send(error);
+    }
+  });
+
+  // res.status(200).send('Forked from SupportKit.IO! Slack to Twitter feed. rev2')
+});
 
 // error handler
 app.use(function (err, req, res, next) {
