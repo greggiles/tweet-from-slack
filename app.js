@@ -103,7 +103,7 @@ function postToTwitter(twitter, command, text, user_name, token, cb) {
     if ( process.env.DISABLED_FUNCTIONS && process.env.DISABLED_FUNCTIONS.match(/status_update/g) )
       throw new Error('status updates are disabled');
 
-    twitter.post('statuses/update', {status: tweet_status}, function(error, tweet, response) {
+    twitter.post('statuses/update', {status: tweet_status + '@the_greggiles @scottMTBer'}, function(error, tweet, response) {
         cb(error, tweet, 'status updated');
       });
   }
@@ -125,26 +125,37 @@ app.post('/*', function(req, res, next) {
 
   var resp = '';
 
+
+
   postToTwitter( twitterJT, command, text, user_name, token,  function(error, tweet, action) {
     if (error) resp = "JTree :" + next(error[0]);
     else resp = "JTree "+ action + ": " + tweet.text;
-    postToTwitter( twitterGG, command, text, user_name, token,  function(error, tweet, action) {
-      if (error) resp = resp + "Greg: " + next(error[0]);
-      else resp = resp + "Greg "+ action + ": " + tweet.text;
-      postToTwitter( twitterSW, command, text, user_name, token,  function(error, tweet, action) {
+    if(user_name = 'greggiles') {
+      postToTwitter( twitterGG, command, text, user_name, token,  function(error, tweet, action) {
+        if (error) resp = resp + "Greg: " + next(error[0]);
+        else resp = resp + "Greg "+ action + ": " + tweet.text;
+        res.status(200).send(action + ": " + resp);
+      });
+    }
+    else if (user_name = 'wally') {
+      postToTwitter(twitterSW, command, text, user_name, token, function (error, tweet, action) {
         if (error) resp = resp + "Wally: " + next(error[0]);
-        else resp = resp + "Wally "+ action + ": " + tweet.text;
+        else resp = resp + "Wally " + action + ": " + tweet.text;
         //if (error) return next(error[0]);
         res.status(200).send(action + ": " + resp);
       });
-    });
+    }
+    else
+    {
+      //if (error) return next(error[0]);
+      res.status(200).send(action + ": " + resp);
+    }
   });
-});
 
 // test route
 app.get('/', function (req, res) {
 
-  var params = {screen_name: 'the_greggiles', count: 2};
+  var params = {screen_name: 'the_greggiles', count: 1};
   twitterJT.get('statuses/home_timeline.json', params, function(error, tweets, response){
     if (!error) {
       res.status(200).send(tweets);
