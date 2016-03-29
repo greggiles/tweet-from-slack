@@ -161,7 +161,7 @@ app.get('/', function (req, res) {
     }
     else
     {
-      resp = resp + error[0].message + "<br>";
+      resp = resp + JSON.stringify(error) + "<br>";
     }
     twitterGG.get('statuses/mentions_timeline.json', params, function(error, tweets, response){
       resp = resp + "<br> Greg <br> ";
@@ -170,7 +170,7 @@ app.get('/', function (req, res) {
       }
       else
       {
-        resp = resp + error[0].message  + "<br>";
+        resp = resp + JSON.stringify(error) + "<br>";
       }
     });
     twitterSW.get('statuses/mentions_timeline.json', params, function(error, tweets, response){
@@ -182,7 +182,7 @@ app.get('/', function (req, res) {
       {
         // res.write(next(error[0]));
 
-        resp = resp + error[0].message + "<br>";
+        resp = resp + JSON.stringify(error) + "<br>";
       }
       res.status(200).send(resp);
     });
