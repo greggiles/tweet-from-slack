@@ -152,40 +152,40 @@ app.post('/*', function(req, res, next) {
 });
 // test route
 app.get('/', function (req, res) {
-
+  var resp = 'Data from Twitter Tests<br>';
   var params = {count: 1};
   twitterJT.get('statuses/mentions_timeline.json', params, function(error, tweets, response){
-    res.status(200).write("JTree:\n");
+    resp = resp + "<br> JTree <br> ";
     if (!error) {
-      res.write(tweets);
+      resp = resp + tweets + "<br>";
     }
     else
     {
-      res.write(error.toString());
+      resp = resp + error[0].message + "<br>";
     }
-  });
-  twitterGG.get('statuses/mentions_timeline.json', params, function(error, tweets, response){
-    res.write("\nGreg:\n");
-    if (!error) {
-      res.write(tweets);
-    }
-    else
-    {
-      res.write(error.toString());
-    }
-  });
-  twitterSW.get('statuses/mentions_timeline.json', params, function(error, tweets, response){
-    res.write("\nScott:\n");
-    if (!error) {
-      res.write(tweets);
-      res.end();
-    }
-    else
-    {
-      // res.write(next(error[0]));
-      res.write(error.toString());
-      res.end();
-    }
+    twitterGG.get('statuses/mentions_timeline.json', params, function(error, tweets, response){
+      resp = resp + "<br> Greg <br> ";
+      if (!error) {
+        resp = resp + tweets + "<br>";
+      }
+      else
+      {
+        resp = resp + error[0].message  + "<br>";
+      }
+    });
+    twitterSW.get('statuses/mentions_timeline.json', params, function(error, tweets, response){
+      resp = resp + "<br> Scott <br> ";
+      if (!error) {
+        resp = resp + tweets + "<br>";
+      }
+      else
+      {
+        // res.write(next(error[0]));
+
+        resp = resp + error[0].message + "<br>";
+      }
+      res.status(200).send(resp);
+    });
   });
 
   // res.status(200).send('Forked from SupportKit.IO! Slack to Twitter feed. rev2')
