@@ -161,7 +161,7 @@ app.get('/', function (req, res) {
     }
     else
     {
-      res.write(error);
+      res.write(error.toString());
     }
   });
   twitterGG.get('statuses/mentions_timeline.json', params, function(error, tweets, response){
@@ -171,17 +171,20 @@ app.get('/', function (req, res) {
     }
     else
     {
-      res.write(error);
+      res.write(error.toString());
     }
   });
   twitterSW.get('statuses/mentions_timeline.json', params, function(error, tweets, response){
     res.write("\nScott:\n");
     if (!error) {
-      res.send(tweets);
+      res.write(tweets);
+      res.end();
     }
     else
     {
-      res.send(error);
+      // res.write(next(error[0]));
+      res.write(error.toString());
+      res.end();
     }
   });
 
