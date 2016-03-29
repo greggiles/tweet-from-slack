@@ -153,14 +153,35 @@ app.post('/*', function(req, res, next) {
 // test route
 app.get('/', function (req, res) {
 
-  var params = {screen_name: 'the_greggiles', count: 1};
-  twitterJT.get('statuses/home_timeline.json', params, function(error, tweets, response){
+  var params = {count: 1};
+  twitterJT.get('statuses/mentions_timeline.json', params, function(error, tweets, response){
+    res.status(200).write("JTree:\n");
     if (!error) {
-      res.status(200).send(tweets);
+      res.write(tweets);
     }
     else
     {
-      res.status(200).send(error);
+      res.write(error);
+    }
+  });
+  twitterGG.get('statuses/mentions_timeline.json', params, function(error, tweets, response){
+    res.write("\nGreg:\n");
+    if (!error) {
+      res.write(tweets);
+    }
+    else
+    {
+      res.write(error);
+    }
+  });
+  twitterSW.get('statuses/mentions_timeline.json', params, function(error, tweets, response){
+    res.write("\nScott:\n");
+    if (!error) {
+      res.send(tweets);
+    }
+    else
+    {
+      res.send(error);
     }
   });
 
