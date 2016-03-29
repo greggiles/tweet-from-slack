@@ -157,7 +157,7 @@ app.get('/', function (req, res) {
   twitterJT.get('statuses/mentions_timeline.json', params, function(error, tweets, response){
     resp = resp + "<br> JTree <br> ";
     if (!error) {
-      resp = resp + tweets + "<br>";
+      resp = resp + JSON.stringify(tweets) + "<br>";
     }
     else
     {
@@ -166,7 +166,7 @@ app.get('/', function (req, res) {
     twitterGG.get('statuses/mentions_timeline.json', params, function(error, tweets, response){
       resp = resp + "<br> Greg <br> ";
       if (!error) {
-        resp = resp + tweets + "<br>";
+        resp = resp + JSON.stringify(tweets) + "<br>";
       }
       else
       {
@@ -176,7 +176,7 @@ app.get('/', function (req, res) {
     twitterSW.get('statuses/mentions_timeline.json', params, function(error, tweets, response){
       resp = resp + "<br> Scott <br> ";
       if (!error) {
-        resp = resp + tweets + "<br>";
+        resp = resp + JSON.stringify(tweets) + "<br>";
       }
       else
       {
