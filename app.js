@@ -103,7 +103,7 @@ function postToTwitter(twitter, command, text, user_name, token, cb) {
     if ( process.env.DISABLED_FUNCTIONS && process.env.DISABLED_FUNCTIONS.match(/status_update/g) )
       throw new Error('status updates are disabled');
 
-    twitter.post('statuses/update', {status: tweet_status + '@the_greggiles @scottMTBer'}, function(error, tweet, response) {
+    twitter.post('statuses/update', {status: tweet_status + ' @the_greggiles @scottMTBer'}, function(error, tweet, response) {
         cb(error, tweet, 'status updated');
       });
   }
