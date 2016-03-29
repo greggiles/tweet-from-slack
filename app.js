@@ -119,21 +119,20 @@ function postToTwitter(twitter, command, text, user_name, token, cb) {
 
 app.post('/*', function(req, res, next) {
   var command = req.body.command,
-  text = req.body.text,
-  user_name = req.body.user_name,
-  token = req.body.token;
+      text = req.body.text,
+      user_name = req.body.user_name,
+      token = req.body.token;
 
   var resp = '';
 
 
-
-  postToTwitter( twitterJT, command, text, user_name, token,  function(error, tweet, action) {
+  postToTwitter(twitterJT, command, text, user_name, token, function (error, tweet, action) {
     if (error) resp = "JTree :" + next(error[0]);
-    else resp = "JTree "+ action + ": " + tweet.text;
-    if(user_name = 'greggiles') {
-      postToTwitter( twitterGG, command, text, user_name, token,  function(error, tweet, action) {
+    else resp = "JTree " + action + ": " + tweet.text;
+    if (user_name = 'greggiles') {
+      postToTwitter(twitterGG, command, text, user_name, token, function (error, tweet, action) {
         if (error) resp = resp + "Greg: " + next(error[0]);
-        else resp = resp + "Greg "+ action + ": " + tweet.text;
+        else resp = resp + "Greg " + action + ": " + tweet.text;
         res.status(200).send(action + ": " + resp);
       });
     }
@@ -145,13 +144,12 @@ app.post('/*', function(req, res, next) {
         res.status(200).send(action + ": " + resp);
       });
     }
-    else
-    {
+    else {
       //if (error) return next(error[0]);
       res.status(200).send(action + ": " + resp);
     }
   });
-
+});
 // test route
 app.get('/', function (req, res) {
 
